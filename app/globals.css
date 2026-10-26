@@ -1,0 +1,11 @@
+/* Bootstrap 4 does the heavy lifting; these keep long post content in bounds. */
+.post-body img {
+  max-width: 100%;
+  height: auto;
+}
+
+.post-body pre {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
