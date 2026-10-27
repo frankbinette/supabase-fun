@@ -1,4 +1,4 @@
-# frankbinette.com, now with Supabase
+# Frank Binette's site, now with Supabase
 
 My personal site (rebuilt in Next.js) plus a few small features that each exercise a part of Supabase:
 
