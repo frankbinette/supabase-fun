@@ -11,6 +11,7 @@ export async function signGuestbook(_prev: SignState, formData: FormData): Promi
   if (!name || !message) return { error: "Please fill in your name and a message." };
 
   const supabase = await createClient();
+  // user_id defaults to auth.uid(), and RLS rejects the insert if nobody is signed in.
   const { error } = await supabase.from("guestbook_entries").insert({ name, message });
   if (error) return { error: error.message };
 
@@ -24,5 +25,11 @@ export async function deleteEntry(id: number) {
   const { data, error } = await supabase.from("guestbook_entries").delete().eq("id", id).select("id");
   if (error) throw new Error(error.message);
   if (!data.length) throw new Error("Only the site owner can delete entries.");
+  revalidatePath("/guestbook");
+}
+
+export async function signOut() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
   revalidatePath("/guestbook");
 }

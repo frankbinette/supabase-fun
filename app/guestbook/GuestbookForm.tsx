@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef } from "react";
 import { signGuestbook, type SignState } from "./actions";
 
-export default function GuestbookForm() {
+export default function GuestbookForm({ defaultName }: { defaultName: string }) {
   const [state, formAction, pending] = useActionState<SignState, FormData>(signGuestbook, {});
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -15,7 +15,7 @@ export default function GuestbookForm() {
     <form ref={formRef} action={formAction} className="mb-4">
       <div className="form-group">
         <label htmlFor="name">Name</label>
-        <input id="name" name="name" className="form-control" maxLength={60} required />
+        <input id="name" name="name" className="form-control" maxLength={60} defaultValue={defaultName} required />
       </div>
       <div className="form-group">
         <label htmlFor="message">Message</label>
