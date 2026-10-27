@@ -4,6 +4,7 @@ import Link from "next/link";
 const links = [
   { name: "About", href: "/about" },
   { name: "Notes", href: "/notes" },
+  { name: "Guestbook", href: "/guestbook" },
 ];
 
 export default function Navigation() {
