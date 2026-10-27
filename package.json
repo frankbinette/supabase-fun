@@ -5,7 +5,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:test": "supabase test db",
+    "env:local": "node scripts/write-env.mjs",
+    "db:lint": "supabase db lint",
+    "db:advisors": "supabase db advisors --local",
+    "functions:serve": "supabase functions serve"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
@@ -18,6 +26,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.118.0",
     "bootstrap": "^4.4.1",
     "gray-matter": "^4.0.3",
     "next": "^15.5.28",

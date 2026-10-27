@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ReadersBadge from "./ReadersBadge";
 
 const credit = `©${new Date().getFullYear()} frankbinette. Made for fun with Next.js, Bootstrap, Supabase.`;
 
@@ -16,6 +17,7 @@ export default function Footer({ withNav = false }: { withNav?: boolean }) {
             </div>
             <div className="col-7">
               <p className="text-center">{credit}</p>
+              <p className="text-center"><ReadersBadge /></p>
             </div>
             <div className="col">
               <p className="text-right">
@@ -27,6 +29,7 @@ export default function Footer({ withNav = false }: { withNav?: boolean }) {
           <div className="row">
             <div className="col">
               <p className="text-center">{credit}</p>
+              <p className="text-center"><ReadersBadge /></p>
             </div>
           </div>
         )}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
+import PageViews from "@/components/PageViews";
 import Title from "@/components/Title";
 import { formatLongDate, getPost, getPosts, renderMarkdown } from "@/lib/content";
 
@@ -32,6 +33,7 @@ export default async function PostPage({ params }: { params: Params }) {
       <div className="container">
         <div className="row">
           <div className="col-md-12">
+            <PageViews path={post.url} />
             <hr className="py-1" />
             <div className="post-body" dangerouslySetInnerHTML={{ __html: html }} />
           </div>

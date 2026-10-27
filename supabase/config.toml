@@ -125,6 +125,13 @@ file_size_limit = "50MiB"
 # allowed_mime_types = ["image/png", "image/jpeg"]
 # objects_path = "./images"
 
+# Post images and PDFs. `npx supabase seed buckets` uploads everything in objects_path.
+[storage.buckets.site-assets]
+public = true
+file_size_limit = "10MiB"
+allowed_mime_types = ["image/png", "image/jpeg", "image/gif", "image/webp", "application/pdf"]
+objects_path = "./storage/site-assets"
+
 # Allow connections via S3 compatible clients
 [storage.s3_protocol]
 enabled = true
@@ -157,11 +164,11 @@ max_indexes = 5
 enabled = true
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
 # in emails.
-site_url = "http://127.0.0.1:3000"
+site_url = "http://localhost:3000"
 # The public URL that Auth serves on. Defaults to the API external URL with `/auth/v1` appended.
 # external_url = ""
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://127.0.0.1:3000"]
+additional_redirect_urls = ["http://127.0.0.1:3000/**", "http://localhost:3000/**"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # JWT issuer URL. If not set, defaults to auth.external_url.
@@ -321,6 +328,17 @@ max_frequency = "5s"
 # Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
 # `discord`, `facebook`, `github`, `gitlab`, `google`, `keycloak`, `linkedin_oidc`, `notion`, `twitch`,
 # `twitter`, `x`, `slack`, `spotify`, `workos`, `zoom`.
+
+# GitHub sign-in for the guestbook. To try it locally:
+#   1. Create an OAuth app at https://github.com/settings/developers with callback URL
+#      http://127.0.0.1:54321/auth/v1/callback
+#   2. Put SUPABASE_AUTH_EXTERNAL_GITHUB_CLIENT_ID / _SECRET in supabase/.env
+#   3. Uncomment this block, set NEXT_PUBLIC_GITHUB_LOGIN=true in .env.local, restart.
+# [auth.external.github]
+# enabled = true
+# client_id = "env(SUPABASE_AUTH_EXTERNAL_GITHUB_CLIENT_ID)"
+# secret = "env(SUPABASE_AUTH_EXTERNAL_GITHUB_SECRET)"
+
 [auth.external.apple]
 enabled = false
 client_id = ""
@@ -414,3 +432,7 @@ enabled = true
 # formatted with uppercase keywords, indent 2, max width 180, trailing commas,
 # and column/key alignment. Set to "null" to emit raw, unformatted SQL.
 # format_options = "{\"keywordCase\":\"upper\",\"indent\":2,\"maxWidth\":180,\"commaStyle\":\"trailing\"}"
+
+# Anonymous visitors call this with the publishable key, which isn't a JWT.
+[functions.page-views]
+verify_jwt = false
