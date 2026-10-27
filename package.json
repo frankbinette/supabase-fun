@@ -10,7 +10,10 @@
     "supabase:stop": "supabase stop",
     "db:reset": "supabase db reset",
     "db:test": "supabase test db",
-    "env:local": "node scripts/write-env.mjs"
+    "env:local": "node scripts/write-env.mjs",
+    "db:lint": "supabase db lint",
+    "db:advisors": "supabase db advisors --local",
+    "functions:serve": "supabase functions serve"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",

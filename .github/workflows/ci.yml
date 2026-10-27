@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ci-placeholder
+
+  database:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Applies every migration and the seed on a throwaway local stack.
+      - run: npx supabase start -x studio,imgproxy,mailpit,logflare,vector,supavisor,edge-runtime
+      - name: RLS tests (pgTAP)
+        run: npx supabase test db
+      - name: Schema lint
+        run: npx supabase db lint --fail-on error
+      - name: Security and performance advisors
+        run: npx supabase db advisors --local --fail-on error
