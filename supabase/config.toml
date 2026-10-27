@@ -125,6 +125,13 @@ file_size_limit = "50MiB"
 # allowed_mime_types = ["image/png", "image/jpeg"]
 # objects_path = "./images"
 
+# Post images and PDFs. `npx supabase seed buckets` uploads everything in objects_path.
+[storage.buckets.site-assets]
+public = true
+file_size_limit = "10MiB"
+allowed_mime_types = ["image/png", "image/jpeg", "image/gif", "image/webp", "application/pdf"]
+objects_path = "./storage/site-assets"
+
 # Allow connections via S3 compatible clients
 [storage.s3_protocol]
 enabled = true

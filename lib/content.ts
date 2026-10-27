@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import rehypeStringify from "rehype-stringify";
+import { rewriteAssetLinks } from "./storage";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
@@ -39,7 +40,7 @@ export async function renderMarkdown(markdown: string): Promise<string> {
     .use(rehypeRaw)
     .use(rehypeStringify)
     .process(markdown);
-  return String(file);
+  return rewriteAssetLinks(String(file));
 }
 
 export function getPosts(): Post[] {
